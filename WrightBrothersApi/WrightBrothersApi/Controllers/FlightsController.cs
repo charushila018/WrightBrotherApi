@@ -46,8 +46,16 @@ public class FlightsController : ControllerBase
         _logger = logger;
     }
 
+    [HttpGet]
+    public ActionResult<List<Flight>> Get()
+    {
+        _logger.LogInformation("GET ✈✈✈ ALL ✈✈✈");
+        return Ok(Flights);
+    }
+
     [HttpPost]
-    public ActionResult<Flight> Post([FromBody] Flight flight)
+    
+    public ActionResult<Flight> AddFlight([FromBody] Flight flight)
     {
         _logger.LogInformation("POST ✈✈✈ NO PARAMS ✈✈✈");
 
@@ -69,6 +77,42 @@ public class FlightsController : ControllerBase
         }
 
         return Ok(flight);
+    }
+
+    [HttpPut("{id}")]
+    public ActionResult Put(int id, [FromBody] Flight updatedFlight)
+    {
+        var flight = Flights.Find(f => f.Id == id);
+        if (flight == null)
+        {
+            return NotFound();
+        }
+
+        flight.FlightNumber = updatedFlight.FlightNumber;
+        flight.Origin = updatedFlight.Origin;
+        flight.Destination = updatedFlight.Destination;
+        flight.DepartureTime = updatedFlight.DepartureTime;
+        flight.ArrivalTime = updatedFlight.ArrivalTime;
+        flight.Status = updatedFlight.Status;
+        flight.FuelRange = updatedFlight.FuelRange;
+        flight.FuelTankLeak = updatedFlight.FuelTankLeak;
+        flight.FlightLogSignature = updatedFlight.FlightLogSignature;
+        flight.AerobaticSequenceSignature = updatedFlight.AerobaticSequenceSignature;
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult Delete(int id)
+    {
+        var flight = Flights.Find(f => f.Id == id);
+        if (flight == null)
+        {
+            return NotFound();
+        }
+
+        Flights.Remove(flight);
+        return NoContent();
     }
 
     [HttpPost("{id}/status")]

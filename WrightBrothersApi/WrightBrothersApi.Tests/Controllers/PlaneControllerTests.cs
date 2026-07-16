@@ -34,7 +34,7 @@ namespace WrightBrothersApi.Tests.Controllers
             // Arrange
             var newPlane = new Plane
             {
-                Id = 3,
+                Id = 99,
                 Name = "Test Plane",
                 Year = 2022,
                 Description = "A test plane.",

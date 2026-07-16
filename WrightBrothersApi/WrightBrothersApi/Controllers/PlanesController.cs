@@ -15,7 +15,7 @@ namespace WrightBrothersApi.Controllers
         public PlanesController(ILogger<PlanesController> logger) { _logger = logger; }
 
         /// <summary>In-memory data source containing Wright Brothers plane records.</summary>
-        private static readonly List<Plane> Planes = new List<Plane>
+        private readonly List<Plane> Planes = new List<Plane>
         {
             new Plane { Id = 1, Name = "Wright Flyer", Year = 1903, Description = "The first successful heavier-than-air powered aircraft.", RangeInKm = 12, ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Wright_Model_B.jpg/800px-Wright_Model_B.jpg" },
             new Plane { Id = 2, Name = "Wright Flyer II", Year = 1904, Description = "A refinement of the original Flyer with better performance.", RangeInKm = 24, ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Wright_Model_B.jpg/800px-Wright_Model_B.jpg" },
@@ -98,6 +98,12 @@ namespace WrightBrothersApi.Controllers
             var plane = Planes.Find(p => p.Id == id);
             if (plane == null) return NotFound();
             return Ok(plane);
+        }
+
+        [HttpGet]
+        public ActionResult<List<Plane>> GetAll()
+        {
+            return Ok(Planes);
         }
     }
 }

@@ -11,6 +11,8 @@ public class Flight
 
     public bool FuelTankLeak { get; set; }
 
+    public string FlightLog => FlightLogSignature;
+
     // Format: DDMMYYYY-DEP-ARR-FLIGHT
     // Example: 17121903-DEP-ARR-WB001
     // For this flight
