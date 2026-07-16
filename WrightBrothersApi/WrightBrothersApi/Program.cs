@@ -14,6 +14,7 @@ builder.Services.AddHealthChecks()
         if (atCruisingAltitude)
 
         {
+// just testing vi
             return HealthCheckResult.Healthy("The application is cruising smoothly at optimal altitude.");
         }
         else
